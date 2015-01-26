@@ -40,10 +40,11 @@ var processTweets = function(filepath) {
       return false;
     }
     if (obj.coordinates != null && latIsFine(obj.coordinates.coordinates[1]) && longIsFine(obj.coordinates.coordinates[0])) {
+      var hourCreated = new Date(obj.created_at).getHours();
       var tweet = new Tweet;
         tweet._id = obj.id_str;
         tweet.createdAt = obj.created_at;
-        tweet.hourCreated = new Date(obj.created_at).getHours();
+        tweet.timeSlot = findTimeSlot(hourCreated);
         tweet.content = obj.text;
         tweet.longitude = obj.coordinates.coordinates[0];
         tweet.latitude = obj.coordinates.coordinates[1];
@@ -66,6 +67,15 @@ var processTweets = function(filepath) {
 
   function longIsFine(longitude){
     return longitude >= -0.5654233 && longitude <= 0.3109232
+  }
+
+  function findTimeSlot(hourCreated) {
+    if (hourCreated >= 0 && < 4) { return 1 }
+    else if (hourCreated >= 4 && < 8) { return 2 }
+    else if (hourCreated >= 8 && < 12) { return 3 }
+    else if (hourCreated >= 12 && < 16) { return 4 }
+    else if (hourCreated >= 16 && < 20) { return 5 }
+    else if (hourCreated >= 20 && <= 23) { return 6 }
   }
 }
 
