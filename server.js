@@ -70,12 +70,7 @@ var processTweets = function(filepath) {
   }
 
   function findTimeSlot(hourCreated) {
-    if (hourCreated >= 0 && < 4) { return 1 }
-    else if (hourCreated >= 4 && < 8) { return 2 }
-    else if (hourCreated >= 8 && < 12) { return 3 }
-    else if (hourCreated >= 12 && < 16) { return 4 }
-    else if (hourCreated >= 16 && < 20) { return 5 }
-    else if (hourCreated >= 20 && <= 23) { return 6 }
+    return Math.floor(hourCreated / 4) + 1
   }
 }
 
